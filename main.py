@@ -1,22 +1,26 @@
 from tkinter import *
+from tkinter import messagebox
 
 # ---------------------------- PASSWORD GENERATOR ------------------------------- #
-# This section is reserved for the password generator functionality.
-# You can implement functions to generate a random, secure password here.
 
 # ---------------------------- SAVE PASSWORD ------------------------------- #
-# This section is reserved for the save password functionality.
-# You can implement functions to save the password to a file or database here.
-
 def save():
     # Get the current values from the entry fields
     website = website_entry.get()
     email = email_entry.get()
     password = password_entry.get()
 
-    # Open the file in append mode and save the data
-    with open("data.txt","a") as file:
-        file.write(f"{website} || {email} || {password} \n")
+    is_ok = messagebox.askokcancel(title=website, message=f"These are the details entered: \nEmail : {email}\nPassword : {password}\n Is it ok to save")
+
+    if len(website) == 0 or len(password) == 0:
+        messagebox.showinfo(title="Oops", message="Please don't leave any fields empty")
+    else:
+        # Open the file in append mode and save the data
+        if is_ok == True:
+            with open("data.txt","a") as file:
+                file.write(f"{website} || {email} || {password} \n")
+                website_entry.delete(0,END)
+                password_entry.delete(0,END)
 
 # ---------------------------- UI SETUP ------------------------------- #
 # Create the main window
