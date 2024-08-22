@@ -8,6 +8,16 @@ from tkinter import *
 # This section is reserved for the save password functionality.
 # You can implement functions to save the password to a file or database here.
 
+def save():
+    # Get the current values from the entry fields
+    website = website_entry.get()
+    email = email_entry.get()
+    password = password_entry.get()
+
+    # Open the file in append mode and save the data
+    with open("data.txt","a") as file:
+        file.write(f"{website} || {email} || {password} \n")
+
 # ---------------------------- UI SETUP ------------------------------- #
 # Create the main window
 window = Tk()
@@ -27,6 +37,7 @@ website_label.grid(column=0, row=1, sticky="E")  # Align label to the right
 # Create and place the entry widget for the website input
 website_entry = Entry(width=50)
 website_entry.grid(column=1, row=1, columnspan=2, sticky="W")  # Span across two columns and align left
+website_entry.focus() # Get the cursor to the entry 
 
 # Create and place the 'Email/Username' label
 email_label = Label(text="Email/Username:")
@@ -35,6 +46,7 @@ email_label.grid(column=0, row=2, sticky="E")  # Align label to the right
 # Create and place the entry widget for the email/username input
 email_entry = Entry(width=50)
 email_entry.grid(column=1, row=2, columnspan=2, sticky="W")  # Span across two columns and align left
+email_entry.insert(0, "nihil@gmail.com")
 
 # Create and place the 'Password' label
 password_label = Label(text="Password:")
@@ -49,7 +61,7 @@ password_button = Button(text="Generate Password")
 password_button.grid(column=2, row=3, sticky="W")  # Position the button next to the password entry field
 
 # Create and place the 'Add' button to save the data
-add_button = Button(text="Add", width=40)  # The button spans the entire width under the input fields
+add_button = Button(text="Add", width=40, command=save)  # The button spans the entire width under the input fields
 add_button.grid(column=1, row=4, columnspan=2)
 
 # Start the main event loop to make the window interactive
