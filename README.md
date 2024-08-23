@@ -26,10 +26,6 @@ This is a simple password generator application built with Python's Tkinter libr
    ```bash
    pip install pyperclip
 
-# Password Generator Application
-
-This Python application provides a simple and secure way to generate passwords and store them along with a website and email/username. The application is built using Python's Tkinter library for the graphical user interface (GUI) and `pyperclip` for clipboard management.
-
 ## Running the Application
 
 1. **Prepare the Environment:**
