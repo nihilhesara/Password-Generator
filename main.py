@@ -81,8 +81,33 @@ def save():
 
 # ---------------------------- FIND PASSWORD  ------------------------------- #
 def find_password():
+    # Get the website name from the entry widget
     website = website_entry.get()
-    website.capitalize()
+    
+    try:
+        # Try to open and read the JSON file containing the saved passwords
+        with open("data.json") as data_file:
+            data = json.load(data_file)  # Load the data into a dictionary
+
+    except FileNotFoundError:
+        # If the file does not exist, show an error message
+        messagebox.showinfo(title="Error", message="No data file found.")
+    
+    except json.JSONDecodeError:
+        # If the file exists but contains invalid JSON, show an error message
+        messagebox.showinfo(title="Error", message=f"No data file found for this {website} website.")
+    
+    else:
+        # If the file exists, check if the website is in the dictionary
+        if website in data:
+            # If the website exists in the data, retrieve the email and password
+            email = data[website]["email"]
+            password = data[website]["password"]
+            # Show the email and password in a message box
+            messagebox.showinfo(title=website, message=f"Email : {email}\nPassword : {password}")
+        else:
+            # If the website does not exist in the data, show an error message
+            messagebox.showinfo(title="Error", message=f"No details for {website} exist.")
 
 # ---------------------------- UI SETUP ------------------------------- #
 # Create the main window
