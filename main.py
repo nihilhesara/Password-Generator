@@ -78,6 +78,11 @@ def save():
             website_entry.delete(0, END)
             password_entry.delete(0, END)
 
+# ---------------------------- FIND PASSWORD  ------------------------------- #
+def find_password():
+    website = website_entry.get()
+    website.capitalize()
+
 # ---------------------------- UI SETUP ------------------------------- #
 # Create the main window
 window = Tk()
@@ -95,16 +100,19 @@ website_label = Label(text="Website:")
 website_label.grid(column=0, row=1, sticky="E")  # Align label to the right
 
 # Create and place the entry widget for the website input
-website_entry = Entry(width=50)
-website_entry.grid(column=1, row=1, columnspan=2, sticky="W")  # Span across two columns and align left
+website_entry = Entry(width=30)
+website_entry.grid(column=1, row=1, sticky="W")  # Span across two columns and align left
 website_entry.focus()  # Set focus on the website entry field
+
+search_button = Button(text="Search", width=13, command=find_password)
+search_button.grid(column=2,row=1)
 
 # Create and place the 'Email/Username' label
 email_label = Label(text="Email/Username:")
 email_label.grid(column=0, row=2, sticky="E")  # Align label to the right
 
 # Create and place the entry widget for the email/username input
-email_entry = Entry(width=50)
+email_entry = Entry(width=52)
 email_entry.grid(column=1, row=2, columnspan=2, sticky="W")  # Span across two columns and align left
 email_entry.insert(0, "nihil@gmail.com")  # Pre-fill the email field with a default value
 
@@ -117,11 +125,11 @@ password_entry = Entry(width=25)  # A narrower input field since it will be next
 password_entry.grid(column=1, row=3, sticky="W")  # Align left
 
 # Create and place the 'Generate Password' button
-password_button = Button(text="Generate Password", command=generate_password)
+password_button = Button(text="Generate Password", command=generate_password,width=14)
 password_button.grid(column=2, row=3, sticky="W")  # Position the button next to the password entry field
 
 # Create and place the 'Add' button to save the data
-add_button = Button(text="Add", width=40, command=save)  # The button spans the entire width under the input fields
+add_button = Button(text="Add", width=44, command=save)  # The button spans the entire width under the input fields
 add_button.grid(column=1, row=4, columnspan=2)
 
 # Start the main event loop to make the window interactive
