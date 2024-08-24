@@ -45,8 +45,8 @@ def save():
     password = password_entry.get()
     new_data = {
         website: {
-            "email":email,
-            "password":password,
+            "email": email,
+            "password": password,
         }
     }
 
@@ -55,28 +55,29 @@ def save():
         # Show an error message if fields are empty
         messagebox.showinfo(title="Oops", message="Please don't leave any fields empty")
     else:
-        # Save the data to a file if user confirms
         try:
+            # Try to open and read the existing data file
             with open("data.json", "r") as data_file:
-                # Reading old data
+                # Attempt to load the existing data
                 data = json.load(data_file)
-
         except FileNotFoundError:
-            with open("data.json", "w") as data_file:
-                json.dump(new_data,data_file,indent=4)
+            # If the file does not exist, create a new one
+            data = {}
+        except json.JSONDecodeError:
+            # If the file is empty or corrupted, treat it as empty
+            data = {}
 
-        else:
-            # Updating old data with new data
-            data.update(new_data)
-        
-            with open("data.json", "w") as data_file:
-                # Saving updated data
-                json.dump(data,data_file,indent=4)
+        # Updating old data with new data
+        data.update(new_data)
 
-        finally:       
-            # Clear the website and password entry fields after saving
-            website_entry.delete(0, END)
-            password_entry.delete(0, END)
+        # Write the updated data back to the file
+        with open("data.json", "w") as data_file:
+            json.dump(data, data_file, indent=4)
+
+        # Clear the website and password entry fields after saving
+        website_entry.delete(0, END)
+        password_entry.delete(0, END)
+
 
 # ---------------------------- FIND PASSWORD  ------------------------------- #
 def find_password():
